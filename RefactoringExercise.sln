@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefactoringExercise", "RefactoringExercise.csproj", "{99B90D87-D7DC-423A-B6C1-3E7860E2C3DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99B90D87-D7DC-423A-B6C1-3E7860E2C3DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B90D87-D7DC-423A-B6C1-3E7860E2C3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B90D87-D7DC-423A-B6C1-3E7860E2C3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B90D87-D7DC-423A-B6C1-3E7860E2C3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
