@@ -4,22 +4,22 @@ using System.Text;
 namespace RefactoringExercise;
 public class Program {
     public static void Main() {
-        DoubleStack stack = new DoubleStack();
+        Controller controller = new Controller();
         bool isRunning = true;
         while (isRunning) {
-            stack.isFirstLaunch = HandleOutput(stack);
+            controller.isFirstLaunch = HandleOutput(controller);
             string input = Console.ReadLine()!.Trim();
-            if (!ProcessInput(stack, input))
+            if (!ProcessInput(controller.stack, input))
                 isRunning = false;
         }
     }
 
-    public static bool HandleOutput(DoubleStack stack) {
-        if (stack.isFirstLaunch) {
-            stack.outputTarget.Write("Commands: q c + - * / number");
-            stack.outputTarget.Write("[]");
+    public static bool HandleOutput(Controller control) {
+        if (control.isFirstLaunch) {
+            control.outputTarget.Write("Commands: q c + - * / number");
+            control.outputTarget.Write("[]");
         }
-        else stack.outputTarget.Write(stack.StringRepresentation());
+        else control.outputTarget.Write(control.stack.StringRepresentation());
         return false;
     }
     public static bool ProcessInput(DoubleStack stack, string? input) {
@@ -73,9 +73,13 @@ public class Program {
     }
 }
 
-public class DoubleStack {
-    public IInterface outputTarget = new IConsole();
+public class Controller {
+    public IInterface outputTarget = new InConsole();
     public bool isFirstLaunch = true;
+    public DoubleStack stack = new DoubleStack();
+}
+
+public class DoubleStack {
     private double[] _data = new double[1000];
     public int Depth { get; private set; }
 
@@ -89,6 +93,7 @@ public class DoubleStack {
             return 0;
         }
     }
+
     public string StringRepresentation() {
         StringBuilder b = new StringBuilder();
         b.Append('[');
@@ -106,6 +111,10 @@ public interface IInterface {
     public void Write(string? data);
 }
 
-public class IConsole : IInterface {
+public class InConsole : IInterface {
     public void Write(string? data) => Console.WriteLine(data);
+}
+
+public class InWindow : IInterface {
+    public void Write(string? data) { throw new NotImplementedException(); }
 }
