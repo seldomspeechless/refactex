@@ -1,64 +1,74 @@
-﻿using System.Text;
+﻿// ReSharper disable All
+using System.Text;
 
 namespace RefactoringExercise;
 public class Program {
-    static void Main() {
-        var isRunning = true;
-        var stack = new DoubleStack();
+    public static void Main() {
+        DoubleStack stack = new DoubleStack();
+        bool isFirstLaunch = true;
+        bool isRunning = true;
         while (isRunning) {
-            if (stack.Depth == 0) {
-                Console.WriteLine("Commands: q c + - * / number");
-                Console.WriteLine("[]");
+            isFirstLaunch = HandleOutput(stack, isFirstLaunch);
+            string input = Console.ReadLine()!.Trim();
+            if (!IssueCommand(stack, input))
+                isRunning = false;
+        }
+    }
+
+    public static bool HandleOutput(DoubleStack stack, bool isFirstLaunch) {
+        if (isFirstLaunch) {
+            Console.WriteLine("Commands: q c + - * / number");
+            Console.WriteLine("[]");
+        }
+        else {
+            Console.WriteLine(stack.StringRepresentation());
+        }
+        return false;
+    }
+    public static bool IssueCommand(DoubleStack stack, string? input) {
+        if (input is "" or null) input = " ";
+        char command = input[0];
+        if (char.IsDigit(command)) {
+            double value = Convert.ToDouble(input);
+            stack.Push(value);
+            return true;
+        }
+        switch (command) {
+            case '+': {
+                stack.Push(stack.Pop() + stack.Pop());
+                break;
             }
-            else {
-                Console.WriteLine(stack.ToString());
+            case '*': {
+                stack.Push(stack.Pop() * stack.Pop());
+                break;
             }
-            var input = Console.ReadLine()?.Trim();
-            if (input is "" or null) input = " ";
-            var command = input[0];
-            switch (command) {
-                case '+': {
-                    stack.Push(stack.Pop() + stack.Pop());
-                    break;
-                }
-                case '*': {
-                    stack.Push(stack.Pop() * stack.Pop());
-                    break;
-                }
-                case '-': {
-                    var d = stack.Pop();
-                    stack.Push(stack.Pop() - d);
-                    break;
-                }
-                case '/': {
-                    var d = stack.Pop();
-                    stack.Push(stack.Pop() / d);
-                    break;
-                }
-                case 'c': {
-                    stack.Clear();
-                    break;
-                }
-                case 'q': {
-                    isRunning = false;
-                    break;
-                }
-                default: {
-                    if (char.IsDigit(command)) {
-                        var value = Convert.ToDouble(input);
-                        stack.Push(value);
-                    }
-                    else {
-                        Console.WriteLine("Illegal command, ignored");
-                    }
-                    break;
-                }
+            case '-': {
+                double d = stack.Pop();
+                stack.Push(stack.Pop() - d);
+                break;
+            }
+            case '/': {
+                double d = stack.Pop();
+                stack.Push(stack.Pop() / d);
+                break;
+            }
+            case 'c': {
+                stack.Clear();
+                break;
+            }
+            case 'q': {
+                return false;
+            }
+            default: {
+                Console.WriteLine("Illegal command, ignored");
+                return true;
             }
         }
+        return true;
     }
 }
 
-class DoubleStack {
+public class DoubleStack {
     private double[] _data = new double[1000];
     public int Depth { get; private set; }
 
@@ -72,7 +82,7 @@ class DoubleStack {
             return 0;
         }
     }
-    public override string ToString() {
+    public string StringRepresentation() {
         var b = new StringBuilder();
         b.Append('[');
         for (int i = Depth - 1; ; i--) {
