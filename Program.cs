@@ -4,25 +4,24 @@ using System.Text;
 namespace RefactoringExercise;
 public class Program {
     public static void Main() {
+        IInterface outputTarget = new IConsole();
         DoubleStack stack = new DoubleStack();
         bool isFirstLaunch = true;
         bool isRunning = true;
         while (isRunning) {
-            isFirstLaunch = HandleOutput(stack, isFirstLaunch);
+            isFirstLaunch = HandleOutput(outputTarget, stack, isFirstLaunch);
             string input = Console.ReadLine()!.Trim();
             if (!IssueCommand(stack, input))
                 isRunning = false;
         }
     }
 
-    public static bool HandleOutput(DoubleStack stack, bool isFirstLaunch) {
+    public static bool HandleOutput(IInterface output, DoubleStack stack, bool isFirstLaunch) {
         if (isFirstLaunch) {
-            Console.WriteLine("Commands: q c + - * / number");
-            Console.WriteLine("[]");
+            output.Write("Commands: q c + - * / number");
+            output.Write("[]");
         }
-        else {
-            Console.WriteLine(stack.StringRepresentation());
-        }
+        else output.Write(stack.StringRepresentation());
         return false;
     }
     public static bool IssueCommand(DoubleStack stack, string? input) {
@@ -102,4 +101,12 @@ public class DoubleStack {
         }
     }
     public void Clear() => Depth = 0;
+}
+
+public interface IInterface {
+    public void Write(string? data);
+}
+
+public class IConsole : IInterface {
+    public void Write(string? data) => Console.WriteLine(data);
 }
