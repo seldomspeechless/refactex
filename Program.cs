@@ -4,28 +4,25 @@ using System.Text;
 namespace RefactoringExercise;
 public class Program {
     public static void Main() {
-        IInterface outputTarget = new IConsole();
         DoubleStack stack = new DoubleStack();
-        bool isFirstLaunch = true;
         bool isRunning = true;
         while (isRunning) {
-            isFirstLaunch = HandleOutput(outputTarget, stack, isFirstLaunch);
+            stack.isFirstLaunch = HandleOutput(stack);
             string input = Console.ReadLine()!.Trim();
             if (!IssueCommand(stack, input))
                 isRunning = false;
         }
     }
 
-    public static bool HandleOutput(IInterface output, DoubleStack stack, bool isFirstLaunch) {
-        if (isFirstLaunch) {
-            output.Write("Commands: q c + - * / number");
-            output.Write("[]");
+    public static bool HandleOutput(DoubleStack stack) {
+        if (stack.isFirstLaunch) {
+            stack.outputTarget.Write("Commands: q c + - * / number");
+            stack.outputTarget.Write("[]");
         }
-        else output.Write(stack.StringRepresentation());
+        else stack.outputTarget.Write(stack.StringRepresentation());
         return false;
     }
     public static bool IssueCommand(DoubleStack stack, string? input) {
-        // todo: validation of more cases, i.e. letter only accepted [0], no trailing operators
         if (input is "" or null) input = " ";
         char command = input[0];
         if (char.IsDigit(command) && !ValidationHasTrailingTextOrSymbols(input)) {
@@ -77,6 +74,8 @@ public class Program {
 }
 
 public class DoubleStack {
+    public IInterface outputTarget = new IConsole();
+    public bool isFirstLaunch = true;
     private double[] _data = new double[1000];
     public int Depth { get; private set; }
 
