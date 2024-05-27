@@ -5,7 +5,7 @@ namespace RefactoringExercise.Classes;
 
 public class DoubleStack {
     private readonly double[] _data = new double[1000];
-    private int Depth { get; set; }
+    public int Depth { get; set; }
 
     public void Push(double value) => _data[Depth++] = value;
     public double Pop() {
@@ -25,5 +25,6 @@ public class DoubleStack {
             builder.Append(", ");
         }
     }
+
     public void Clear() => Depth = 0;
 }

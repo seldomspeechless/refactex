@@ -26,21 +26,27 @@ public class Controller {
         }
         switch (command) {
             case '+': {
-                stack.Push(stack.Pop() + stack.Pop());
+                if (ValidationStackHasTwoValues(stack))
+                    stack.Push(stack.Pop() + stack.Pop());
                 break;
             }
             case '*': {
-                stack.Push(stack.Pop() * stack.Pop());
+                if (ValidationStackHasTwoValues(stack))
+                    stack.Push(stack.Pop() * stack.Pop());
                 break;
             }
             case '-': {
-                double d = stack.Pop();
-                stack.Push(stack.Pop() - d);
+                if (ValidationStackHasTwoValues(stack)) {
+                    double d = stack.Pop();
+                    stack.Push(stack.Pop() - d);
+                }
                 break;
             }
             case '/': {
-                double d = stack.Pop();
-                stack.Push(stack.Pop() / d);
+                if (ValidationStackHasTwoValues(stack)) {
+                    double d = stack.Pop();
+                    stack.Push(stack.Pop() / d);
+                }
                 break;
             }
             case 'c': {
@@ -63,6 +69,12 @@ public class Controller {
         Console.WriteLine(input[1..]);
         foreach (var x in input[1..])
             if ("ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö+-/*".Contains(x)) return true;
+        return false;
+    }
+
+    private bool ValidationStackHasTwoValues(DoubleStack stack) {
+        if (stack.Depth > 1) return true;
+        _target.Write("Calculator needs at least two values to compute");
         return false;
     }
 
