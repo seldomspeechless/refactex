@@ -9,7 +9,7 @@ public class Program {
         while (isRunning) {
             stack.isFirstLaunch = HandleOutput(stack);
             string input = Console.ReadLine()!.Trim();
-            if (!IssueCommand(stack, input))
+            if (!ProcessInput(stack, input))
                 isRunning = false;
         }
     }
@@ -22,7 +22,7 @@ public class Program {
         else stack.outputTarget.Write(stack.StringRepresentation());
         return false;
     }
-    public static bool IssueCommand(DoubleStack stack, string? input) {
+    public static bool ProcessInput(DoubleStack stack, string? input) {
         if (input is "" or null) input = " ";
         char command = input[0];
         if (char.IsDigit(command) && !ValidationHasTrailingTextOrSymbols(input)) {
