@@ -61,7 +61,7 @@ public class Program {
             }
             default: {
                 Console.WriteLine("Illegal command, ignored");
-                return true;
+                break;
             }
         }
         return true;
@@ -83,7 +83,7 @@ public class DoubleStack {
         }
     }
     public string StringRepresentation() {
-        var b = new StringBuilder();
+        StringBuilder b = new StringBuilder();
         b.Append('[');
         for (int i = Depth - 1; ; i--) {
             b.Append(_data[i]);
