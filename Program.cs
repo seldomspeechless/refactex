@@ -26,9 +26,10 @@ public class Program {
         return false;
     }
     public static bool IssueCommand(DoubleStack stack, string? input) {
+        // todo: validation of more cases, i.e. letter only accepted [0], no trailing operators
         if (input is "" or null) input = " ";
         char command = input[0];
-        if (char.IsDigit(command)) {
+        if (char.IsDigit(command) && !ValidationHasTrailingTextOrSymbols(input)) {
             double value = Convert.ToDouble(input);
             stack.Push(value);
             return true;
@@ -65,6 +66,14 @@ public class Program {
             }
         }
         return true;
+    }
+
+    public static bool ValidationHasTrailingTextOrSymbols(string? input) {
+        if (input is null) return true;
+        Console.WriteLine(input[1..]);
+        foreach (var x in input[1..])
+            if ("ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö+-/*".Contains(x)) return true;
+        return false;
     }
 }
 
