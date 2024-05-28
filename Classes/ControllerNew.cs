@@ -26,15 +26,27 @@ public class ControllerNew {
             return true;
         }
 
-        switch (command) {
-            case '+': { Calculator.DoMath(Calculator.Operation.ADD); break; }
-            case '*': { Calculator.DoMath(Calculator.Operation.MULTIPLY); break; }
-            case '-': { Calculator.DoMath(Calculator.Operation.SUBSTRACT); break; }
-            case '/': { Calculator.DoMath(Calculator.Operation.DIVIDE); break; }
-            case 'c': { Calculator.Stack.Clear(); break; }
-            case 'q': { return false; }
-            default: { _target.Write("Illegal command, ignored"); break; }
+        if ("+-/*".Contains(command)) {
+            if (ValidationStackHasTwoValues(Calculator.Stack))
+                Calculator.Calculate(command);
+            return true;
         }
+
+        /*Dictionary<char, Action> op = new() {
+            { '+', () => Calculator.Add() },
+            { '-', () => Calculator.Substract() },
+            { '*', () => Calculator.Multiply() },
+            { '/', () => Calculator.Divide() },
+        };
+        if (op.ContainsKey(command)) {
+            if (ValidationStackHasTwoValues(Calculator.Stack))
+                op[command].Invoke();
+            return true;
+        }*/
+
+        if (command is 'c') Calculator.Stack.Clear();
+        else if (command is 'q') return false;
+        else _target.Write("Illegal command, ignored");
         return true;
     }
 
