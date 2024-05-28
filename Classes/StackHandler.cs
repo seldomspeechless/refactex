@@ -6,10 +6,7 @@ namespace RefactoringExercise.Classes;
 
 public class StackHandler : IStack {
     private readonly Stack _data = new();
-    public int Depth {
-        get => _data.Count;
-        set => throw new NotImplementedException();
-    }
+    public int Depth => _data.Count;
 
     public void Push(double value) => _data.Push(value);
 

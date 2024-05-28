@@ -16,7 +16,7 @@ public class DoubleStack : IStack {
         return 0;
     }
 
-    public string StringRepresentation() {
+    public override string ToString() {
         StringBuilder builder = new StringBuilder();
         builder.Append('[');
         for (int i = Depth - 1; ; i--) {
