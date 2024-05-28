@@ -5,16 +5,16 @@ namespace RefactoringExercise.Classes;
 
 public class Controller {
     public bool IsFirstLaunch = true;
-    private readonly IInterface _target;
+    private static IInterface _target = null!;
     public readonly StackHandler Stack = new();
 
     public string GetInput(string? prompt = null) => _target.Read(prompt);
     public bool HandleOutput(Controller control) {
         if (control.IsFirstLaunch) {
-            control._target.Write("Commands: q c + - * / number");
-            control._target.Write("[]");
+            Controller._target.Write("Commands: q c + - * / number");
+            Controller._target.Write("[]");
         }
-        else control._target.Write(control.Stack.ToString());
+        else Controller._target.Write(control.Stack.ToString());
         return false;
     }
     public bool ProcessInput<T>(T stack, string? input) where T : IStack {
@@ -65,7 +65,7 @@ public class Controller {
         return true;
     }
 
-    private static bool ValidationHasTrailingTextOrSymbols(string? input) {
+    public static bool ValidationHasTrailingTextOrSymbols(string? input) {
         if (input is null) return true;
         Console.WriteLine(input[1..]);
         foreach (var x in input[1..])
@@ -73,7 +73,7 @@ public class Controller {
         return false;
     }
 
-    private bool ValidationStackHasTwoValues<T>(T stack) where T : IStack {
+    public static bool ValidationStackHasTwoValues<T>(T stack) where T : IStack {
         if (stack.Depth > 1) return true;
         _target.Write("Calculator needs at least two values to compute");
         return false;

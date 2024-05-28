@@ -6,11 +6,11 @@ using RefactoringExercise.Interfaces;
 namespace RefactoringExercise;
 public static class Program {
     public static void Main() {
-        Controller control = new Controller(new InConsole());
+        ControllerNew control = new ControllerNew(new InConsole());
         while (true) {
             control.IsFirstLaunch = control.HandleOutput(control);
             string input = control.GetInput().Trim();
-            if (!control.ProcessInput(control.Stack, input))
+            if (!control.ProcessInput(Calculator.Stack, input))
                 break;
         }
     }
