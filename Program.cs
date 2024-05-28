@@ -7,12 +7,11 @@ namespace RefactoringExercise;
 public class Program {
     public static void Main() {
         Controller control = new Controller(new InConsole());
-        bool isRunning = true;
-        while (isRunning) {
+        while (true) {
             control.IsFirstLaunch = control.HandleOutput(control);
-            string input = Console.ReadLine()!.Trim();
+            string input = Console.ReadLine()!.Trim(); // maybe i should have InConsole or the IInterface handle this?
             if (!control.ProcessInput(control.Stack, input))
-                isRunning = false;
+                break;
         }
     }
 }

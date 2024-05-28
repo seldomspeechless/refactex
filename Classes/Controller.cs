@@ -64,7 +64,7 @@ public class Controller {
         return true;
     }
 
-    private bool ValidationHasTrailingTextOrSymbols(string? input) {
+    private static bool ValidationHasTrailingTextOrSymbols(string? input) {
         if (input is null) return true;
         Console.WriteLine(input[1..]);
         foreach (var x in input[1..])
