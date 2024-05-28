@@ -6,17 +6,17 @@ namespace RefactoringExercise.Classes;
 public class Controller {
     public bool IsFirstLaunch = true;
     private readonly IInterface _target;
-    public readonly DoubleStack Stack = new();
+    public readonly StackHandler Stack = new();
     
     public bool HandleOutput(Controller control) {
         if (control.IsFirstLaunch) {
             control._target.Write("Commands: q c + - * / number");
             control._target.Write("[]");
         }
-        else control._target.Write(control.Stack.StringRepresentation());
+        else control._target.Write(control.Stack.ToString());
         return false;
     }
-    public bool ProcessInput(DoubleStack stack, string? input) {
+    public bool ProcessInput<T>(T stack, string? input) where T : IStack {
         if (input is "" or null) input = " ";
         char command = input[0];
         if (char.IsDigit(command) && !ValidationHasTrailingTextOrSymbols(input)) {
@@ -72,7 +72,7 @@ public class Controller {
         return false;
     }
 
-    private bool ValidationStackHasTwoValues(DoubleStack stack) {
+    private bool ValidationStackHasTwoValues<T>(T stack) where T : IStack {
         if (stack.Depth > 1) return true;
         _target.Write("Calculator needs at least two values to compute");
         return false;

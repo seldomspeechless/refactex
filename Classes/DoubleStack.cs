@@ -1,9 +1,10 @@
 // ReSharper disable All
 using System.Text;
+using RefactoringExercise.Interfaces;
 
 namespace RefactoringExercise.Classes;
 
-public class DoubleStack {
+public class DoubleStack : IStack {
     private readonly double[] _data = new double[1000];
     public int Depth { get; set; }
 
