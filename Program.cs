@@ -9,7 +9,7 @@ public class Program {
         Controller control = new Controller(new InConsole());
         while (true) {
             control.IsFirstLaunch = control.HandleOutput(control);
-            string input = Console.ReadLine()!.Trim(); // maybe i should have InConsole or the IInterface handle this?
+            string input = control.GetInput().Trim();
             if (!control.ProcessInput(control.Stack, input))
                 break;
         }

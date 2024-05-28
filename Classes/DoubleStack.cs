@@ -6,7 +6,7 @@ namespace RefactoringExercise.Classes;
 
 public class DoubleStack : IStack {
     private readonly double[] _data = new double[1000];
-    public int Depth { get; set; }
+    public int Depth { get; private set; }
 
     public void Push(double value) => _data[Depth++] = value;
     public double Pop() {

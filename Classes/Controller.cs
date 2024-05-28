@@ -7,7 +7,8 @@ public class Controller {
     public bool IsFirstLaunch = true;
     private readonly IInterface _target;
     public readonly StackHandler Stack = new();
-    
+
+    public string GetInput(string? prompt = null) => _target.Read(prompt);
     public bool HandleOutput(Controller control) {
         if (control.IsFirstLaunch) {
             control._target.Write("Commands: q c + - * / number");
