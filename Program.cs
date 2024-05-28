@@ -4,7 +4,7 @@ using RefactoringExercise.Classes;
 using RefactoringExercise.Interfaces;
 
 namespace RefactoringExercise;
-public class Program {
+public static class Program {
     public static void Main() {
         Controller control = new Controller(new InConsole());
         while (true) {

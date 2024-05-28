@@ -1,5 +1,5 @@
+// ReSharper disable SuggestVarOrType_BuiltInTypes
 using System.Collections;
-using System.Text;
 using RefactoringExercise.Interfaces;
 
 namespace RefactoringExercise.Classes;
@@ -18,14 +18,15 @@ public class StackHandler : IStack {
     }
 
     public override string ToString() {
-        StringBuilder builder = new StringBuilder();
-        builder.Append('[');
-        foreach (double? i in _data.ToArray().Reverse()) {
-            builder.Append(i);
-            builder.Append(", ");
+        string res = string.Empty;
+        var array = _data.Cast<double>();
+        var enumerable = array.ToList();
+        for (var i = 0; i < enumerable.Count; i++) {
+            res += enumerable[i];
+            if (i != enumerable.Count - 1) res += ", ";
         }
-        builder.Append(']');
-        return builder.ToString();
+
+        return res.Insert(0, "[").Insert(res.Length+1, "]");
     }
 
     public void Clear() => _data.Clear();
