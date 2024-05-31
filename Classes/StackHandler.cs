@@ -1,4 +1,4 @@
-// ReSharper disable SuggestVarOrType_BuiltInTypes
+// ReSharper disable All
 using System.Collections;
 using RefactoringExercise.Interfaces;
 
