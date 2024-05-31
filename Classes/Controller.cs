@@ -9,11 +9,9 @@ public class Controller {
 
     public string GetInput(string? prompt = null) => _target.Read(prompt);
     public bool HandleOutput(Controller control) {
-        if (control.IsFirstLaunch) {
+        if (control.IsFirstLaunch)
             _target.Write("Commands: q c + - * / number");
-            _target.Write("[]");
-        }
-        else _target.Write(Calculator.Stack.ToString());
+        _target.Write(Calculator.Stack.ToString());
         return false;
     }
 
@@ -24,8 +22,7 @@ public class Controller {
             stack.Push(Convert.ToDouble(input));
             return true;
         }
-
-        if ("+-/*".Contains(command)) {
+        else if ("+-/*".Contains(command)) {
             if (ValidationStackHasTwoValues(Calculator.Stack))
                 Calculator.Calculate(command);
             return true;
