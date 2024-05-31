@@ -19,11 +19,10 @@ public class StackHandler : IStack {
 
     public override string ToString() {
         string res = string.Empty;
-        var array = _data.Cast<double>();
-        var enumerable = array.ToList();
-        for (var i = 0; i < enumerable.Count; i++) {
-            res += enumerable[i];
-            if (i != enumerable.Count - 1) res += ", ";
+        var lst = _data.Cast<double>().ToList();
+        for (var i = 0; i < lst.Count; i++) {
+            res += lst[i];
+            if (i != lst.Count - 1) res += ", ";
         }
 
         return res.Insert(0, "[").Insert(res.Length+1, "]");
