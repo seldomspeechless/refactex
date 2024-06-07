@@ -6,7 +6,8 @@ using RefactoringExercise.Interfaces;
 namespace RefactoringExercise;
 public static class Program {
     public static void Main() {
-        Controller control = new Controller(new InConsole());
+        IUI ui = new UIConsole();
+        Controller control = new Controller(ui);
         while (true) {
             control.IsFirstLaunch = control.HandleOutput(control);
             string input = control.GetInput().Trim();

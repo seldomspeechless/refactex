@@ -24,7 +24,7 @@ public class StackHandler : IStack {
             res += lst[i];
             if (i != lst.Count - 1) res += ", ";
         }
-
+        // todo: use _data.ToArray()?
         return res.Insert(0, "[").Insert(res.Length+1, "]");
     }
 

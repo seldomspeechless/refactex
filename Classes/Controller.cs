@@ -5,7 +5,7 @@ namespace RefactoringExercise.Classes;
 
 public class Controller {
     public bool IsFirstLaunch = true;
-    private IInterface _target = null!;
+    private IUI _target = null!;
 
     public string GetInput(string? prompt = null) => _target.Read(prompt);
     public bool HandleOutput(Controller control) {
@@ -18,7 +18,7 @@ public class Controller {
     public bool ProcessInput<T>(T stack, string? input) where T : IStack {
         if (input is "" or null) input = " ";
         char command = input[0];
-        if (char.IsDigit(command) && !Controller.ValidationHasTrailingTextOrSymbols(input)) {
+        if (char.IsDigit(command) && !ValidationHasTrailingTextOrSymbols(input)) {
             stack.Push(Convert.ToDouble(input));
             return true;
         }
@@ -46,5 +46,5 @@ public class Controller {
         return false;
     }
 
-    public Controller(IInterface useInterface) => _target = useInterface;
+    public Controller(IUI useIui) => _target = useIui;
 }
