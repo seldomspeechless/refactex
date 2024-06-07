@@ -2,5 +2,5 @@ namespace RefactoringExercise.Interfaces;
 
 public interface IUI {
     public void Write(string? data);
-    public string Read(string? prompt) { return string.Empty; }
+    public string Read(string? prompt);
 }
